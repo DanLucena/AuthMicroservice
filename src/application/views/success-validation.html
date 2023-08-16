@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Email Confirmation</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+      }
+      .screen {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 100px;
+      }
+      .box {
+        background-color: #F5F5F5;
+        min-width: 300px;
+        width: 700px;
+        height: 450px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+      .circle {
+        width: 65px;
+        height: 65px;
+        border-radius: 100px;
+        display: flex;
+        background-color: rgba(113, 35, 215, 0.4);
+        align-items: center;
+        justify-content: center;
+      }
+      .text-tittle-box {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+      }
+      .tex-tittle {
+        font-size: 22px;
+        max-width: 500px;
+        font-weight: normal;
+      }
+      .description {
+        margin-top: 12px;
+      }
+      .description p {
+        max-width: 600px;
+        text-align: center;
+        color: #777;
+      }
+      .button-action {
+        margin-top: 40px;
+        border: 0px;
+        padding: 10px 30px;
+        background-color: rgba(113, 35, 215, 1);
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <div class="box">
+        <div class="header">
+          <img src="https://i.ibb.co/3kgxsx9/Group-2-removebg-preview.png" alt="check icon">
+        </div>
+        <div class="text-tittle-box">
+          <p class="tex-tittle">Your account has been successfully activated!</p>
+        </div>
+        <div class="description">
+          <p>Your account has been activated, you can now use the features of our service, thank you very much.</p>
+        </div>
+        <button class="button-action">Lets Go!</button>
+      </div>
+    </div>
+  </body>
+</html>
