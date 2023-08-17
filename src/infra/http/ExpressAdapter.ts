@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import HttpServer, { ReturnType } from "./HttpServer";
 import path from 'node:path';
 import cors from 'cors';
+import { CustomError } from '../errors/CustomError';
 
 export default class ExpressAdapter implements HttpServer {
   app: any;
@@ -24,7 +25,12 @@ export default class ExpressAdapter implements HttpServer {
         }
 			} catch (e: any) {
         if(returnType.type == 'JSON') {
-          res.status(422).json({ message: e.message });
+          if (e instanceof CustomError) {
+            res.status(e.status).json({ message: e.message });
+          } else {
+            console.log(e.status)
+            res.status(500).json({ message: e.message });
+          }
         } else {
           const file = path.join(__dirname, `../../application/views/error.html`);
           res.sendFile(file);

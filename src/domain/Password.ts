@@ -1,4 +1,5 @@
 import { hashSync, compareSync } from 'bcrypt';
+import { CustomError } from '../infra/errors/CustomError';
 
 export default class Password {
   static HASH_SALT_ROUNDS = 10;
@@ -6,7 +7,7 @@ export default class Password {
   private constructor(readonly value: string) { }
 
   static create(value: string) {
-    if(!Password.validate(value)) throw new Error('Invalid password');
+    if(!Password.validate(value)) throw new CustomError('Invalid password');
     const hashedPassword = hashSync(value, Password.HASH_SALT_ROUNDS);
 
     return new Password(hashedPassword);

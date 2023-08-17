@@ -1,15 +1,16 @@
 import Password from "../../src/domain/Password";
+import { CustomError } from "../../src/infra/errors/CustomError";
 
 test('must raise an error when password does not have more than 6 characters', () => {
-  expect(() => Password.create('Wk*1')).toThrow(new Error('Invalid password'));
+  expect(() => Password.create('Wk*1')).toThrow(new CustomError('Invalid password'));
 });
 
 test('must raise an error when password does not have one capital letter', () => {
-  expect(() => Password.create('wk*1')).toThrow(new Error('Invalid password'));
+  expect(() => Password.create('wk*1')).toThrow(new CustomError('Invalid password'));
 });
 
 test('must raise an error when password does not have a special character', () => {
-  expect(() => Password.create('wk1')).toThrow(new Error('Invalid password'));
+  expect(() => Password.create('wk1')).toThrow(new CustomError('Invalid password'));
 });
 
 test('must create a password that meets all constraints', () => {

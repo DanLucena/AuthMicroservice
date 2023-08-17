@@ -1,8 +1,10 @@
+import { CustomError } from "../infra/errors/CustomError";
+
 export default class Email {
   private value: string;
 
   constructor(value: string) {
-    if(!this.validate(value)) throw new Error('Invalid email');
+    if(!this.validate(value)) throw new CustomError('Invalid email', 400);
     this.value = value;
   }
 

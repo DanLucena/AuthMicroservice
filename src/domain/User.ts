@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import Email from './Email';
 import Password from './Password';
+import { CustomError } from '../infra/errors/CustomError';
 
 export default class User {
   private constructor(readonly id: string, readonly email: Email, readonly password: Password, readonly username: string, public isActive: boolean) { }
@@ -17,7 +18,7 @@ export default class User {
   }
 
   public active() {
-    if(this.isActive) throw new Error('Cant activate an account that is already active');
+    if(this.isActive) throw new CustomError('Cant activate an account that is already active');
     this.isActive = true;
   }
 }

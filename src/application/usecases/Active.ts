@@ -1,5 +1,6 @@
 import { Status } from "../../domain/MailActivate";
 import TokenGenerator from "../../domain/TokenGenerator";
+import { CustomError } from "../../infra/errors/CustomError";
 import MailActivateRepository from "../respository/MailActivateRepository";
 import UserRepository from "../respository/UserRepository";
 
@@ -14,14 +15,14 @@ export default class Active {
     const tokenGenerator = new TokenGenerator(process.env.JWT_TOKEN || 'token');
     const tokenInfo = tokenGenerator.verify(input.token) as any;
     const user = await this.userRepository.get(tokenInfo.email);
-    if(!user) throw new Error('User does not exists');
+    if(!user) throw new CustomError('User does not exists', 400);
     
     const activationConcluded = await this.mailActivateRepository.get(user, Status.CONCLUIDO);
     if(activationConcluded) return 'success-validation.html';
     if(user.isActive) return 'success-validation.html';
     
     const activationStatus = await this.mailActivateRepository.get(user, Status.AGUARDANDO);
-    if(!activationStatus) throw new Error('User does not exists');
+    if(!activationStatus) throw new CustomError('User does not exists', 400);
     if(activationStatus.token !== input.token) return 'error.html';
 
     await this.userRepository.update(user, { isActive: true });

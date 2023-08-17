@@ -1,4 +1,5 @@
 import TokenGenerator from "../../domain/TokenGenerator";
+import { CustomError } from "../../infra/errors/CustomError";
 import UserRepository from "../respository/UserRepository";
 
 type Input = {
@@ -16,9 +17,9 @@ export default class Login {
   async execute(input: Input): Promise<Output> {
     const user = await this.userRepository.get(input.email);
 
-    if(!user) throw new Error('User does not exists');
-    if(!user.password.check(input.password)) throw new Error('Wrong password');
-    if(!user.isActive) throw new Error('Inactive account');
+    if(!user) throw new CustomError('User does not exists', 400);
+    if(!user.password.check(input.password)) throw new CustomError('Wrong password', 400);
+    if(!user.isActive) throw new CustomError('Inactive account', 400);
 
     const tokenGenerator = new TokenGenerator(process.env.JWT_TOKEN || 'token');
     const token = tokenGenerator.sign(user);

@@ -1,4 +1,5 @@
 import { Status } from "../../domain/MailActivate";
+import { CustomError } from "../../infra/errors/CustomError";
 import Queue from "../../infra/queue/Queue";
 import MailActivateRepository from "../respository/MailActivateRepository";
 import RepositoryFactoryInterface from "../respository/RepositoryFactory";
@@ -20,10 +21,10 @@ export default class ResendConfirmationMail {
   public async execute(input: Input) {
     const user = await this.userRepository.get(input.email);
 
-    if(!user) throw new Error('User does not exists');
+    if(!user) throw new CustomError('User does not exists', 400);
 
     const concludedActivation = await this.mailValidateRepository.get(user, Status.CONCLUIDO);
-    if(concludedActivation) throw new Error('Account already confirmed');
+    if(concludedActivation) throw new CustomError('Account already confirmed', 400);
 
     await this.queue.publish('mailer', { 
       to: user.email.getValue(),

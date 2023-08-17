@@ -3,6 +3,7 @@ import CreateUser from "../../src/application/usecases/CreateUser";
 import { validate as uuidValidate } from 'uuid';
 import User from "../../src/domain/User";
 import Queue from "../../src/infra/queue/Queue";
+import { CustomError } from "../../src/infra/errors/CustomError";
 
 const userRepository: UserRepository = {
   save: async (user: User) => {},
@@ -28,5 +29,5 @@ test('must raise an exception when trying to create a user that already exists',
   const usecase = new CreateUser(userRepository, queue);
   const input = {username: 'TestUser', password: 'validPassword*123', email: 'validEmail2@gmail.com'};
 
-  expect(async () => await usecase.execute(input)).rejects.toThrow(new Error('User already exists'));
+  expect(async () => await usecase.execute(input)).rejects.toThrow(new CustomError('User already exists'));
 })

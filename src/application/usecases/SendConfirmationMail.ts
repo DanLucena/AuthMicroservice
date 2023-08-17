@@ -1,4 +1,5 @@
 import MailActivate, { Status } from "../../domain/MailActivate";
+import { CustomError } from "../../infra/errors/CustomError";
 import MailerInterface from "../../infra/mailer/MailerInterface";
 import getEmailFormat from "../../infra/mailer/view/ConfirmationMailView";
 import MailActivateRepository from "../respository/MailActivateRepository";
@@ -18,7 +19,7 @@ export default class SendConfirmationMail {
 
   public async execute(input: Input): Promise<any> {
     const user = await this.userRepository.get(input.to);
-    if(!user) throw new Error('User does not exists');
+    if(!user) throw new CustomError('User does not exists', 400);
 
     const activationStatus = await this.mailValidateRepository.get(user, Status.AGUARDANDO);
     if(activationStatus) {

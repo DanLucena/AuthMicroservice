@@ -1,8 +1,7 @@
 import UserRepository from "../respository/UserRepository";
 import User from "../../domain/User";
 import Queue from "../../infra/queue/Queue";
-import TokenGenerator from "../../domain/TokenGenerator";
-import getEmailFormat from "../../infra/mailer/view/ConfirmationMailView";
+import { CustomError } from "../../infra/errors/CustomError";
 
 type Input = {
   username: string,
@@ -19,7 +18,7 @@ export default class CreateUser {
 
   public async execute(input: Input): Promise<Output> {
     const user = await this.userRepository.get(input.email);
-    if(user) throw new Error('User already exists');
+    if(user) throw new CustomError('User already exists', 400);
 
     const newUser = User.create(input.email, input.password, input.username);
 
