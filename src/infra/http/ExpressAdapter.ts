@@ -28,7 +28,6 @@ export default class ExpressAdapter implements HttpServer {
           if (e instanceof CustomError) {
             res.status(e.status).json({ message: e.message });
           } else {
-            console.log(e.status)
             res.status(500).json({ message: e.message });
           }
         } else {

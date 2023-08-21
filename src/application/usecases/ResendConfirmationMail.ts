@@ -27,7 +27,7 @@ export default class ResendConfirmationMail {
     if(concludedActivation) throw new CustomError('Account already confirmed', 400);
 
     await this.queue.publish('mailer', { 
-      to: user.email.getValue(),
+      to: user,
       subject: 'Account Confirmation',
     });
   }

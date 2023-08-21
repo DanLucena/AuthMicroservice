@@ -6,7 +6,7 @@ export default class TokenGenerator {
   constructor(readonly key: string) { }
 
   sign(user: User, expiresInSeconds: number = 600) {
-    return sign({ email: user.email.getValue() }, this.key, { expiresIn: expiresInSeconds });
+    return sign({ email: user.email.value }, this.key, { expiresIn: expiresInSeconds });
   }
 
   verify(token: string) {

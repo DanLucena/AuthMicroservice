@@ -9,9 +9,9 @@ export default class UserRepositoryDatabase implements UserRepository {
     this.client = this.orm.open();
   }
 
-  async update(user: User, newData: Partial<User>): Promise<void> {
+  async update(user: User, newData: Partial<any>): Promise<void> {
     await this.client.user.update({
-      where: { email: user.email.getValue() },
+      where: { email: user.email.value },
       data: {
         ...newData as any
       }
@@ -24,7 +24,7 @@ export default class UserRepositoryDatabase implements UserRepository {
     await client.user.create({
       data: {
         id: user.id,
-        email: user.email.getValue(),
+        email: user.email.value,
         password: user.password.value,
         username: user.username
       }

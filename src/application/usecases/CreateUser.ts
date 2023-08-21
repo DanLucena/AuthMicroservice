@@ -24,7 +24,7 @@ export default class CreateUser {
 
     await this.userRepository.save(newUser);
     await this.queue.publish('mailer', { 
-      to: newUser.email.getValue(),
+      to: newUser,
       subject: 'Account Confirmation',
     });
 

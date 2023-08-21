@@ -7,7 +7,7 @@ import { CustomError } from "../../src/infra/errors/CustomError";
 
 const userRepository: UserRepository = {
   save: async (user: User) => {},
-  get: async (email: string) => { return [User.create('validEmail2@gmail.com', 'validPassword*123', 'TestUser')].find(item => item.email.getValue() === email) || null },
+  get: async (email: string) => { return [User.create('validEmail2@gmail.com', 'validPassword*123', 'TestUser')].find(item => item.email.value === email) || null },
   update: async (user: User, newData: Partial<User>): Promise<void> => {}
 }
 

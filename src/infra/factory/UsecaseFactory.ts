@@ -1,13 +1,16 @@
 import RepositoryFactoryInterface from "../../application/respository/RepositoryFactory";
-import UserRepository from "../../application/respository/UserRepository";
 import Active from "../../application/usecases/Active";
 import CreateUser from "../../application/usecases/CreateUser";
 import Login from "../../application/usecases/Login";
 import ResendConfirmationMail from "../../application/usecases/ResendConfirmationMail";
-import SendConfirmationMail from "../../application/usecases/SendConfirmationMail";
+import SendConfirmationMail from "../../application/usecases/mailer/SendConfirmationMail";
 import Verify from "../../application/usecases/Verify";
 import MailerInterface from "../mailer/MailerInterface";
 import Queue from "../queue/Queue";
+import UserPasswordReset from "../../application/usecases/UserPasswordReset";
+import SendPasswordMail from "../../application/usecases/mailer/SendPasswordMail";
+import ValidatePasswordResetCode from "../../application/usecases/ValidatePasswordResetCode";
+import ChangePassword from "../../application/usecases/ChangePassword";
 
 export default class UsecaseFactory {
   constructor(private repositories: RepositoryFactoryInterface, private queue: Queue, private mailer: MailerInterface) { }
@@ -24,15 +27,31 @@ export default class UsecaseFactory {
     return new Verify();
   }
 
-  sendMail() {
-    return new SendConfirmationMail(this.mailer, this.repositories.mailActivateRepository(), this.repositories.userRepository());
+  sendConfirmationMail() {
+    return new SendConfirmationMail(this.mailer, this.repositories.mailActivateRepository());
+  }
+
+  resendConfirmationMail() {
+    return new ResendConfirmationMail(this.repositories, this.queue);
   }
 
   active() {
     return new Active(this.repositories.userRepository(), this.repositories.mailActivateRepository());
   }
 
-  resendConfirmationMail() {
-    return new ResendConfirmationMail(this.repositories, this.queue);
+  passwordReset() {
+    return new UserPasswordReset(this.repositories, this.queue);
+  }
+
+  sendPasswordReset() {
+    return new SendPasswordMail(this.repositories, this.mailer);
+  }
+
+  validatePasswordCode() {
+    return new ValidatePasswordResetCode(this.repositories);
+  }
+
+  changePassword() {
+    return new ChangePassword(this.repositories);
   }
 }

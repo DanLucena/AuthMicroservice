@@ -8,5 +8,5 @@ test('must raise an exception when email is invalid', () => {
 test('must create an email when it is valid', () => {
   const email = new Email('validmail@gmail.com');
   expect(email).toBeDefined();
-  expect(email.getValue()).toEqual('validmail@gmail.com');
+  expect(email.value).toEqual('validmail@gmail.com');
 });

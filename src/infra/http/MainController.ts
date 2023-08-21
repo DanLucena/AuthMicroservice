@@ -27,5 +27,20 @@ export default class MainController {
       const active = usecases.active();
       return await active.execute(params);
     }, { type: 'File' });
+
+    httpServer.on('post', '/reset-password', async (params: any, body: any) => {
+      const passwordReset = usecases.passwordReset();
+      return await passwordReset.execute({ email: body.email });
+    });
+
+    httpServer.on('post', '/reset-password/validate-code', async (params: any, body: any) => {
+      const validateCode = usecases.validatePasswordCode();
+      return await validateCode.execute({ email: body.email, code: body.code });
+    });
+
+    httpServer.on('post', '/reset-password/change-password', async (params: any, body: any) => {
+      const changePassword = usecases.changePassword();
+      return await changePassword.execute({ email: body.email, password: body.password, token: body.token });
+    });
   }
 }

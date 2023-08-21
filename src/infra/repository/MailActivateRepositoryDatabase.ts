@@ -14,7 +14,7 @@ export default class MailActivateRepositoryDatabase implements MailActivateRepos
     await this.client.mailActivate.create({
       data: {
         id: data.id,
-        email: data.user.email.getValue(),
+        email: data.user.email.value,
         token: data.token,
         status: Status[data.status]
       }
@@ -24,7 +24,7 @@ export default class MailActivateRepositoryDatabase implements MailActivateRepos
   async get(user: User, status: Status): Promise<MailActivate | undefined> {
     const data = await this.client.mailActivate.findFirst({
       where: {
-        email: user.email.getValue(),
+        email: user.email.value,
         status: Status[status]
       }
     });
