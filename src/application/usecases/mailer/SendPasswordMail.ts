@@ -27,6 +27,6 @@ export default class SendPasswordMail {
     const passwordReset = PasswordReset.create(input.to);
     await this.passwordResetRepository.save(passwordReset);
 
-    return await this.mailer.send(input.to.email.value, input.subject, getEmailFormat(passwordReset.code, input.to.email.value));
+    return await this.mailer.send(input.to.email.value, input.subject, getEmailFormat(passwordReset.code, input.to.username));
   }
 }
