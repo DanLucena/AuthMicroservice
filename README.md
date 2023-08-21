@@ -1,5 +1,7 @@
 # Auth MicroService
 
+![image](https://github.com/BraveUX/for-the-badge/blob/master/src/images/badges/built-with-grammas-recipe.svg)
+
 This is a simple login microservice to be used for authentication in other future projects, it works in a simple way, with some routes, which will be mentioned below.
 
 To run this project you will need follow the next steps:
@@ -85,7 +87,7 @@ response:
 ## Next Steps
 This project stil on its beggining i need to add some features to it:
 
-- [ ] Error code/handling;
+- [x] Error code/handling;
 - [ ] Refresh token;
 - [ ] Token revogation;
-- [ ] Password recover;
+- [x] Password recover;
