@@ -16,7 +16,7 @@ export default class MailActivate {
   static create(user: User) {
     const id = uuidv4();
     const status = Status.AGUARDANDO;
-    const token = MailActivate.tokenGenerator.sign(user, 86_000);
+    const token = MailActivate.tokenGenerator.sign({ email: user.email.value }, 86_000);
 
     return new MailActivate(id, user, status, token);
   }

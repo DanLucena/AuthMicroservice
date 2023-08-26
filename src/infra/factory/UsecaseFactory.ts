@@ -7,24 +7,30 @@ import SendConfirmationMail from "../../application/usecases/mailer/SendConfirma
 import Verify from "../../application/usecases/Verify";
 import MailerInterface from "../mailer/MailerInterface";
 import Queue from "../queue/Queue";
+import ValidatePasswordResetCode from "../../application/usecases/ValidatePasswordResetCode";
 import UserPasswordReset from "../../application/usecases/UserPasswordReset";
 import SendPasswordMail from "../../application/usecases/mailer/SendPasswordMail";
-import ValidatePasswordResetCode from "../../application/usecases/ValidatePasswordResetCode";
 import ChangePassword from "../../application/usecases/ChangePassword";
+import InMemoryConnection from "../database/InMemoryConnection";
 
 export default class UsecaseFactory {
-  constructor(private repositories: RepositoryFactoryInterface, private queue: Queue, private mailer: MailerInterface) { }
+  constructor(
+    private repositories: RepositoryFactoryInterface,
+    private queue: Queue,
+    private mailer: MailerInterface,
+    private redis: InMemoryConnection
+  ) { }
 
   createUser() {
     return new CreateUser(this.repositories.userRepository(), this.queue);
   }
 
   login() {
-    return new Login(this.repositories.userRepository());
+    return new Login(this.repositories, this.redis);
   }
 
   verify() {
-    return new Verify();
+    return new Verify(this.redis);
   }
 
   sendConfirmationMail() {

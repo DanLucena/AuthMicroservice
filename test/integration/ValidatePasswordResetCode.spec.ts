@@ -39,7 +39,7 @@ beforeEach(() => {
       }
     }
   }
-})
+});
 
 test('must be able to validate a password reset code', async () => {
   const usecase = new ValidatePasswordResetCode(repositoryFactory);

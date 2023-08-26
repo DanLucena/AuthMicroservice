@@ -4,7 +4,7 @@ import User from "../../src/domain/User";
 test('Must create a token for user', () => {
   const tokenGenerator = new TokenGenerator(process.env.JWT_TOKEN || 'token');
   const user = User.create('validEmail@gmail.com', 'validPassword*123', 'TestUser');
-  const token = tokenGenerator.sign(user);
+  const token = tokenGenerator.sign({ email: user.email.value });
 
   expect(token).toBeDefined();
 });

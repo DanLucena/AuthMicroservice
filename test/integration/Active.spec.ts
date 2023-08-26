@@ -14,7 +14,7 @@ const userRepository: UserRepository = {
 }
 
 const tokenGenerator = new TokenGenerator(process.env.JWT_TOKEN || 'token');
-const token = tokenGenerator.sign(users[0]);
+const token = tokenGenerator.sign({email: users[0].email.value});
 
 const activeMailRepository: MailActivateRepository = {
   save: async (data: MailActivate): Promise<void> => {

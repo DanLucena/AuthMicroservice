@@ -22,6 +22,12 @@ services:
     volumes:
       - "rabbitmq_data:/var/lib/rabbitmq"
 
+  redis:
+    image: redis:latest
+    container_name: auth_redis
+    ports:
+      - "6379:6379"
+
 volumes:
   postgres-data:
   rabbitmq_data:

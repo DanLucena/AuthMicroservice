@@ -15,7 +15,7 @@ export default class PasswordReset {
     const id = uuidv4();
     const status = Status.AGUARDANDO;
     const code = PasswordReset.idGenerator(6);
-    const token = PasswordReset.tokenGenerator.sign(user, 3600)
+    const token = PasswordReset.tokenGenerator.sign({ email: user.email.value }, 3600)
 
     return new PasswordReset(id, user, status, code, token);
   }

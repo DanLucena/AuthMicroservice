@@ -15,7 +15,7 @@ export default class MainController {
 
     httpServer.on('post', '/verify', async (params: any, body: any) => {
       const verify = usecases.verify();
-      return await verify.execute({token: body.token});
+      return await verify.execute({ token: body.token, userId: body.userId, refreshToken: body.refreshToken });
     });
 
     httpServer.on('post', '/resent-mail-confirmation', async (params: any, body: any) => {
