@@ -88,6 +88,6 @@ response:
 This project stil on its beggining i need to add some features to it:
 
 - [x] Error code/handling;
-- [ ] Refresh token;
-- [ ] Token revogation;
+- [x] Refresh token;
 - [x] Password recover;
+- [ ] Error screen;
